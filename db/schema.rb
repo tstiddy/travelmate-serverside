@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_07_12_083247) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_07_12_083247) do
 
   create_table "comments", force: :cascade do |t|
     t.string "description"
-    t.integer "landmark_id"
+    t.bigint "landmark_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
@@ -36,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_07_12_083247) do
     t.float "latitude"
     t.float "rating"
     t.integer "user_ratings_total"
-    t.integer "city_id"
+    t.bigint "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "types"
@@ -49,4 +52,6 @@ ActiveRecord::Schema.define(version: 2019_07_12_083247) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comments", "landmarks"
+  add_foreign_key "landmarks", "cities"
 end
